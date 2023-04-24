@@ -1,70 +1,36 @@
-# Getting Started with Create React App
+# Proyecto E-Ecommerce Runar 
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Este proyecto fue creado con React aplicando los conocimiento adquiridos en el curse de React de Coderhouse. 
+Dentro del proyecto se busca reclicar un E-commerce que cumpla con algunas funciones básicas para un cliente. 
+En esta opertunidad el E-commerce esta enfocado al sector Runnig, con tres categorías que muestra diferentes productos
+en función de las necesidades del cliente. 
 
-## Available Scripts
+## Estructura del Proyecto
 
-In the project directory, you can run:
+Este este proyecto podrás encontrar las siguientes pages y componente que dan funcionalidad a esta web app
 
-### `npm start`
+### `Catalogo`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Esta la página que muestra todos los productos del E-Commerce y esta conformada por los siguientes componentes: 
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+    `ItemListContainer` : Este componente a su vez renderiza el componente <Item> y <ItemList>. En conjunto estos componentes conformarn la estructura del catalogo. 
+    El componente <Item> detalla como se muestra cada item que es renderizado. Y solo se utiliza como plantilla para el rendizado desde la base de datos. 
+    Por su parte el componente <ItemList> tiene la estructura para iterar y renderizar el listado de productos.
+    Finalmente estos componentes son pasados al componentes <ItemListContainer> el cual se encarga de renderizar y agrupar todos los productos que sean consultados en la base de datos. Dentro de este componente hacemos el llamado de la función de Firebase que hace la consulta de los productos. Se utiliza en este componente: 
+        - useState: Para manejar el estado del Boton de like, el cual cambia cuando se da click en el corazón. Luego el useState para el CircularProgress que se muestra mientras la página carga los productos. Luego el useState de los productos para manejar el array de objetos de todos los productos. 
+        -useEffect: En este caso se usa el useEffect para manejar el cambio de estado de los producto. Si en la base de datos de Firebase se ingresa un nuevo producto, este es renderizado en el componente. 
+    Además dentro de este componente también utilizamos el renderizado condicional. En el cual, mostramos el componente <CircularProgress> cuando el estado loading es true, una vez este cambia a false, se renderiza el componente <ItemList> que maneja el mapeo de todos los produtos. 
 
-### `npm test`
+### `Categories`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Este componente está creado para renderizar los productos filtrados por su categoria. Dentro podemos encontrar useState, useEffect, useParams, useContext y el llamado de la función del servicio de firebase que nos filtra los produtos por categoría.
+    - useParams: Pasamos itemCategory de los productos para filtrarlos y renderizarlos. 
+    - useContext: El use context es tomado para en caso de querer ingresar un producto al carrito, este pueda ser actualizado y recibido par actualizar el cartWidget y el componente Shopping con el listado de productos seleccionados. 
 
-### `npm run build`
+### `Shopping`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Es el componente que mayores funcionalidades posee ya que dentro encontramos el lista de productos seleccionados para confirmar o rechazar la compra. 
+Este componente muestra en una tabla, con la ayuda del useContext el lista de productos seleccionado por el user. En este sentido podrá visualizar la catidad de productos seleccionados, el detalle de los productos y el todal sumada por productos y el total de la compra. 
+Además el user podrá sacar de la tabla los productos que no desee carga.
+Una vez que el usuario decide realizar la comprar deberá ingresar sus datos en un formulario para registralo con el tickte de su compra. 
+Desde este componente utilizamos la función para agregar la orden a Firebase, una vez confirmada la orden que esta carga en el sistema, el user recibe una confirmación customizada con su número de código de comprar. Y al cerrar será redirigido a la página principal del E-commerce para seguir haciendo compras si así lo desea o navegar con el E-commerce.
