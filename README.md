@@ -1,4 +1,4 @@
-# Proyecto E-Ecommerce Runar 
+# Proyecto E-commerce Runar 
 
 Este proyecto fue creado con React aplicando los conocimiento adquiridos en el curse de React de Coderhouse. 
 Dentro del proyecto se busca reclicar un E-commerce que cumpla con algunas funciones básicas para un cliente. 
